@@ -174,7 +174,7 @@
         /* --- MAIN CONTENT & GALLERY --- */
         .main-content {
             display: none;
-            padding-bottom: 120px;
+            padding-bottom: 60px;
             position: relative;
             z-index: 2;
         }
@@ -305,8 +305,8 @@
         /* --- SECTION ULANG TAHUN KHUSUS --- */
         .birthday-section {
             text-align: center;
-            padding: 80px 20px;
-            margin: 40px auto 80px;
+            padding: 80px 20px 20px; /* Padding bottom dikurangi */
+            margin: 0 auto;
             max-width: 800px;
             position: relative;
         }
@@ -346,11 +346,60 @@
             font-style: italic;
         }
 
+        /* --- MINI GALLERY (FOTO TERSEBAR) --- */
+        .mini-gallery-section {
+            position: relative;
+            width: 100%;
+            min-height: 60vh; /* Sesuaikan agar foto punya cukup ruang */
+            padding: 40px 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .mini-photo {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 5px solid white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, z-index 0.3s;
+            position: relative;
+            background: white; /* Jika gambar gagal load */
+        }
+
+        .mini-photo:hover {
+            transform: scale(1.5) rotate(0deg) !important;
+            z-index: 50 !important;
+            box-shadow: 0 15px 30px rgba(200, 134, 140, 0.4);
+        }
+
+        /* Hiasan Love di Mini Gallery */
+        .floating-heart {
+            position: absolute;
+            color: var(--accent-rose);
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: float-up-down 3s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        @keyframes float-up-down {
+            0% { transform: translateY(0) scale(1); opacity: 0.4; }
+            100% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+        }
+
+
         /* --- E-PRESCRIPTION ROMANTIS --- */
         .prescription-section {
             display: flex;
             justify-content: center;
             padding: 40px 20px 80px;
+            margin-top: 40px; /* Beri jarak dari mini gallery */
         }
 
         .prescription-card {
@@ -452,6 +501,7 @@
             .photo-card { padding: 15px 15px 25px 15px; }
             .birthday-content h2 { font-size: 3.5rem; }
             .birthday-content { padding: 40px 20px; }
+            .mini-photo { width: 80px; height: 80px; }
         }
     </style>
 </head>
@@ -607,17 +657,22 @@
             </div>
         </section>
 
+        <!-- SECTION MINI GALLERY (30 FOTO TERSEBAR) -->
+        <section class="mini-gallery-section" id="mini-gallery">
+            <!-- Foto dan hiasan love akan digenerate oleh JavaScript di sini -->
+        </section>
+
         <!-- E-Prescription Section -->
         <section class="prescription-section fade-in-up">
             <div class="prescription-card">
                 <div class="prescription-header">
                     <h2 class="cursive-text">Resep Penawar Rindu</h2>
-                    <p>Diterbitkan penuh cinta oleh pacal kamuu!!</p>
+                    <p>Diterbitkan penuh cinta oleh Elang</p>
                 </div>
                 <div class="prescription-body">
                     <div class="patient-info">
-                        <p>Diberikan Untuk: <span>uchii pacal akuu</span></p>
-                        <p>Diagnosis: <span>sedih dan capek kuliah + LDR:(</span></p>
+                        <p>Diberikan Untuk: <span>Kesayanganku</span></p>
+                        <p>Diagnosis: <span>Terlalu keras berjuang dan butuh penyemangat</span></p>
                     </div>
                     
                     <div class="pill-box">
@@ -691,10 +746,47 @@
                     petal.remove();
                 }, duration * 1000);
             }
-            // Munculkan bunga baru setiap 400ms
             setInterval(createPetal, 400);
 
-            // 4. Database Pesan Semangat
+            // 4. Generate Mini Gallery (30 Foto Tersebar)
+            const miniGallery = document.getElementById('mini-gallery');
+            const totalPhotos = 30;
+
+            // Generate beberapa hiasan love
+            for(let j=0; j<15; j++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '♥';
+                heart.classList.add('floating-heart');
+                heart.style.left = `${Math.random() * 90}%`;
+                heart.style.top = `${Math.random() * 90}%`;
+                heart.style.fontSize = `${Math.random() * 2 + 1}rem`;
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+                miniGallery.appendChild(heart);
+            }
+
+            // Generate 30 foto
+            for (let i = 1; i <= totalPhotos; i++) {
+                const img = document.createElement('img');
+                img.src = `assets/images/foto${i}.jpeg`;
+                img.alt = `Momen ${i}`;
+                img.classList.add('mini-photo');
+                
+                // Rotasi acak antara -20deg hingga 20deg
+                const randomRotate = Math.floor(Math.random() * 40) - 20;
+                // Posisi sedikit diacak agar terlihat 'scattered' tapi tidak menutupi teks lain
+                const randomTranslateY = Math.floor(Math.random() * 40) - 20;
+
+                img.style.transform = `rotate(${randomRotate}deg) translateY(${randomTranslateY}px)`;
+                
+                // Tambahkan error handler jika foto kurang dari 30 agar tidak terlihat broken image
+                img.onerror = function() {
+                    this.style.display = 'none';
+                };
+
+                miniGallery.appendChild(img);
+            }
+
+            // 5. Database Pesan Semangat
             const resepSemangat = [
                 "Tarik napas pelan-pelan. Laporan praktikumnya pasti selesai. Aku selalu bangga padamu.",
                 "Kalau capek, tutup dulu bukunya dan istirahat. Kamu sudah berjuang sangat keras hari ini.",
