@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorong Kenangan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigasi antar halaman -->
+    <nav class="navbar">
+        <a href="index.html">Kembali</a>
+        <a href="pesan.html" class="btn-nav">Baca Suratku -></a>
+    </nav>
+
+    <!-- Audio player tersembunyi yang otomatis lanjut dari status sessionStorage -->
+    <audio id="bg-music" loop autoplay>
+        <source src="assets/audio/Ed Sheeran - Perfect (Official Music Video).mp3" type="audio/mpeg">
+    </audio>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Momen Kita</h1>
+        </div>
+    </header>
+
+    <section class="gallery">
+        <!-- Struktur gambar sama seperti kode sebelumnya -->
+        <div class="gallery-item fade-in">
+            <img src="assets/images/foto1.jpg" alt="Kenangan">
+        </div>
+        <!-- Tambahkan foto sebanyak yang kamu mau di sini -->
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Logika sederhana untuk melanjutkan lagu
+        if(sessionStorage.getItem("musicPlaying") === "true") {
+            document.getElementById('bg-music').play();
+        }
+    </script>
+</body>
+</html>

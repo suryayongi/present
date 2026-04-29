@@ -3,39 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untukmu yang Paling Cantik</title>
+    <title>Kejutan Untukmu</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Library Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-<body>
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Selamat Ulang Tahun, Semestaku.</h1>
-            <p>Di sela-sela padatnya jadwal dan lelahnya hari, aku ingin tempat ini menjadi ruang kecil di mana kamu bisa tersenyum melihat kita.</p>
-            <p class="scroll-prompt">Gulir perlahan ke bawah</p>
-        </div>
-    </header>
+<body class="home-page">
+    <div class="content-center">
+        <h1 class="glitch-text">Selamat Ulang Tahun!</h1>
+        <p>Ada sesuatu yang spesial buat kamu.</p>
+        
+        <!-- Tombol ini akan menyalakan lagu dan pindah halaman -->
+        <a href="galeri.html" class="btn-mulai" id="btn-mulai">Buka Kejutan</a>
+    </div>
 
-    <section class="gallery">
-        <!-- Ganti src dengan path foto kalian -->
-        <div class="gallery-item fade-in">
-            <img src="assets/foto1.jpg" alt="Kenangan Manis 1">
-            <p class="caption">Momen pertama yang tak akan pernah kulupa.</p>
-        </div>
-        <div class="gallery-item fade-in">
-            <img src="assets/foto2.jpg" alt="Kenangan Manis 2">
-            <p class="caption">Senyummu di sini adalah favoritku.</p>
-        </div>
-        <div class="gallery-item fade-in">
-            <img src="assets/foto3.jpg" alt="Kenangan Manis 3">
-            <p class="caption">Terima kasih sudah lahir ke dunia dan bertemu denganku.</p>
-        </div>
-    </section>
+    <!-- Tag Audio tersembunyi -->
+    <audio id="bg-music" loop>
+        <source src="assets/audio/Ed Sheeran - Perfect (Official Music Video).mp3" type="audio/mpeg">
+    </audio>
 
-    <footer>
-        <p>Dibuat dengan segenap cinta, khusus untukmu. ❤️</p>
-    </footer>
+    <script>
+        // Efek Confetti langsung meledak saat halaman dibuka
+        window.onload = function() {
+            var duration = 3000;
+            var end = Date.now() + duration;
 
-    <script src="script.js"></script>
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ffb6c1', '#ff69b4', '#ffc0cb']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ffb6c1', '#ff69b4', '#ffc0cb']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        };
+
+        // Menyimpan status musik agar terus menyala di halaman lain
+        document.getElementById('btn-mulai').addEventListener('click', function(e) {
+            // Karena pindah halaman akan mereset audio, trik paling aman di web statis 
+            // adalah membuka halaman baru di tab baru (target="_blank") ATAU
+            // menggunakan localStorage untuk menyimpan waktu putar, 
+            // tapi yang paling mudah untuk level ini:
+            sessionStorage.setItem("musicPlaying", "true");
+        });
+    </script>
 </body>
 </html>

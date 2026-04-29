@@ -1,95 +1,130 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #fdfbfb;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-    color: #4a4a4a;
-    overflow-x: hidden;
-}
-
-.hero {
-    height: 100vh;
+/* Styling untuk halaman utama agar berada di tengah */
+.home-page {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 20px;
+    height: 100vh;
+    background: radial-gradient(circle, #ffe6ea 0%, #fdfbfb 100%);
+    overflow: hidden;
 }
 
-.hero-content h1 {
+.content-center {
+    text-align: center;
+    z-index: 10;
+}
+
+.glitch-text {
+    font-size: 4rem;
     font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    color: #d4a373;
-    margin-bottom: 20px;
+    color: #ff6b81;
+    text-shadow: 2px 2px 10px rgba(255, 107, 129, 0.3);
+    animation: pulse 2s infinite;
 }
 
-.hero-content p {
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Styling Tombol Heboh */
+.btn-mulai, .btn-nav {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 40px;
     font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 30px auto;
-    line-height: 1.8;
+    color: white;
+    background: linear-gradient(45deg, #ff6b81, #ff4757);
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 10px 20px rgba(255, 71, 87, 0.4);
+    transition: all 0.3s ease;
 }
 
-.scroll-prompt {
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #b5838d;
-    animation: bounce 2s infinite;
+.btn-mulai:hover, .btn-nav:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(255, 71, 87, 0.6);
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-    40% {transform: translateY(-15px);}
-    60% {transform: translateY(-7px);}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.gallery {
-    padding: 50px 20px;
-    max-width: 800px;
-    margin: 0 auto;
+.navbar a {
+    text-decoration: none;
+    color: #ff4757;
+    font-weight: bold;
+}
+/* --- STYLING KHUSUS HALAMAN PESAN --- */
+
+.letter-page {
+    background: radial-gradient(circle, #ffe6ea 0%, #fdfbfb 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.gallery-item {
-    margin-bottom: 60px;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+.letter-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
 }
 
-.gallery-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.gallery-item img {
-    max-width: 100%;
+.letter-content {
+    background: white;
+    padding: 50px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.5s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    max-width: 650px;
+    width: 100%;
+    position: relative;
+    border-top: 6px solid #ffb6c1; /* Garis pastel di atas surat */
 }
 
-.gallery-item img:hover {
-    transform: scale(1.03);
+.letter-content h2 {
+    font-family: 'Playfair Display', serif;
+    color: #d4a373;
+    margin-bottom: 30px;
+    font-size: 2rem;
 }
 
-.caption {
+.letter-content p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin-bottom: 20px;
+    color: #555;
+    text-align: justify;
+}
+
+.letter-content .signature {
+    margin-top: 50px;
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    margin-top: 15px;
-    color: #6d6875;
-    font-size: 1.1rem;
+    text-align: right;
+    color: #d4a373;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
-footer {
-    text-align: center;
-    padding: 40px 20px;
-    font-family: 'Playfair Display', serif;
-    color: #b5838d;
+/* Memastikan tulisan rapi di HP */
+@media (max-width: 600px) {
+    .letter-content {
+        padding: 30px 20px;
+    }
+    .letter-content h2 {
+        font-size: 1.6rem;
+    }
+    .letter-content p {
+        font-size: 1rem;
+    }
 }
