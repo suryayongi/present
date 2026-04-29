@@ -3,47 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untukmu, Kesempurnaanku</title>
+    <title>Medical Record: Kesayanganku</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
-<body class="landing-page">
-    <div class="landing-content">
-        <h3 class="subtitle">Sebuah Perjalanan</h3>
-        <h1 class="title">Selamat Ulang Tahun, Cintaku.</h1>
-        <p class="message">Sebelum melanjutkan, pastikan volumenya menyala. Ada sesuatu yang ingin aku tunjukkan padamu.</p>
-        
-        <a href="galeri.html" class="btn-enter">Mulai Kenangan</a>
+<body>
+
+    <!-- Layar Pembuka (Untuk mengaktifkan audio) -->
+    <div id="welcome-overlay" class="overlay">
+        <div class="overlay-content">
+            <h3 class="subtitle">CONFIDENTIAL RECORD</h3>
+            <h1>Untuk Calon Perawat Hebatku</h1>
+            <p>Pastikan volume perangkatmu menyala sebelum membuka dokumen ini.</p>
+            <button id="btn-enter" class="btn-primary">Buka Rekam Jejak</button>
+        </div>
     </div>
 
-    <script>
-        // Efek Confetti yang elegan (warna emas dan putih)
-        window.onload = function() {
-            var duration = 4000;
-            var end = Date.now() + duration;
+    <!-- Pemutar Musik Tersembunyi -->
+    <audio id="bg-music" loop>
+        <source src="assets/audio/Ed Sheeran - Perfect (Official Music Video).mp3" type="audio/mpeg">
+    </audio>
 
-            (function frame() {
-                confetti({
-                    particleCount: 3,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#D4AF37', '#FFFFFF', '#F9E5C9']
-                });
-                confetti({
-                    particleCount: 3,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#D4AF37', '#FFFFFF', '#F9E5C9']
-                });
+    <!-- Indikator Denyut Jantung (Music Visualizer) -->
+    <div class="heartbeat-monitor">
+        <span>Vital Signs: Normal</span>
+        <div class="ecg-line"></div>
+    </div>
 
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-        };
-    </script>
+    <main class="main-content" id="main-content">
+        <header class="gallery-header fade-in">
+            <h2>Rekam Jejak Kita</h2>
+            <p>Setiap detik bersamamu adalah memori yang patut diarsipkan.</p>
+        </header>
+
+        <section class="photo-timeline">
+            <!-- FOTO 1 -->
+            <div class="timeline-item fade-in-up">
+                <div class="photo-card">
+                    <img src="assets/images/FOTO_1.jpg" alt="Momen 1">
+                    <div class="photo-caption">
+                        <h3>Titik Awal</h3>
+                        <p>"I found a love for me..." Waktu seakan berhenti saat momen ini diabadikan. Sebuah awal dari banyak hal baik.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOTO 2 -->
+            <div class="timeline-item fade-in-up">
+                <div class="photo-card">
+                    <img src="assets/images/FOTO_2.jpg" alt="Momen 2">
+                    <div class="photo-caption">
+                        <h3>Bandung - Depok</h3>
+                        <p>Jarak fisik mungkin ada, tapi melihat senyummu selalu membuat jarak itu terasa tidak ada artinya sama sekali.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOTO 3 -->
+            <div class="timeline-item fade-in-up">
+                <div class="photo-card">
+                    <img src="assets/images/FOTO_3.jpg" alt="Momen 3">
+                    <div class="photo-caption">
+                        <h3>Saling Menguatkan</h3>
+                        <p>Di saat aku pusing dengan barisan kode dan kamu lelah dengan tebalnya buku keperawatan, kita selalu bisa jadi tempat pulang.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOTO 4 -->
+            <div class="timeline-item fade-in-up">
+                <div class="photo-card">
+                    <img src="assets/images/FOTO_4.jpg" alt="Momen 4">
+                    <div class="photo-caption">
+                        <h3>Kekuatanku</h3>
+                        <p>"Well I found a woman, stronger than anyone I know..." Kamu selalu bisa bangkit dan bersinar, seberat apa pun hari yang kamu lalui.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOTO 5 -->
+            <div class="timeline-item fade-in-up">
+                <div class="photo-card">
+                    <img src="assets/images/FOTO_5.jpg" alt="Momen 5">
+                    <div class="photo-caption">
+                        <h3>Hal Sederhana</h3>
+                        <p>Momen-momen sederhana bersamamu selalu terasa spesial. Hal kecil jadi sangat berharga asal kamu yang menemaninya.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOTO 6 -->
+            <div class="timeline-item fade-in-up">
+                <div class="photo-card">
+                    <img src="assets/images/FOTO_6.jpg" alt="Momen 6">
+                    <div class="photo-caption">
+                        <h3>Penawar Lelah</h3>
+                        <p>Melihat foto ini adalah caraku mengembalikan semangat. Senyummu adalah penawar paling ampuh untuk semua rasa penat.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOTO 7 -->
+            <div class="timeline-item fade-in-up">
+                <div class="photo-card">
+                    <img src="assets/images/FOTO_7.jpg" alt="Momen 7">
+                    <div class="photo-caption">
+                        <h3>Menuju Nanti</h3>
+                        <p>"I don't deserve this, darling, you look perfect tonight." Mari buat lebih banyak kenangan hebat ke depannya.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- E-Prescription Section -->
+        <section class="prescription-section fade-in-up">
+            <div class="prescription-card">
+                <div class="prescription-header">
+                    <h2>R/ E-Prescription</h2>
+                    <p>Dokumen Resmi - Diterbitkan oleh Elang</p>
+                </div>
+                <div class="prescription-body">
+                    <p class="patient-name">Nama Pasien: Kesayanganku</p>
+                    <p class="diagnosis">Diagnosis: Kelelahan akibat tugas dan praktikum</p>
+                    
+                    <div class="pill-box">
+                        <p id="pesan-semangat">Klik tombol di bawah jika kamu sedang butuh suntikan semangat.</p>
+                    </div>
+                    
+                    <button id="btn-resep" class="btn-primary">Minta Resep Semangat</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
