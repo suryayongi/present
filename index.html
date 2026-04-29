@@ -3,45 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kejutan Untukmu</title>
+    <title>Untukmu, Kesempurnaanku</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Library Confetti -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-<body class="home-page">
-    <div class="content-center">
-        <h1 class="glitch-text">Selamat Ulang Tahun!</h1>
-        <p>Ada sesuatu yang spesial buat kamu.</p>
+<body class="landing-page">
+    <div class="landing-content">
+        <h3 class="subtitle">Sebuah Perjalanan</h3>
+        <h1 class="title">Selamat Ulang Tahun, Cintaku.</h1>
+        <p class="message">Sebelum melanjutkan, pastikan volumenya menyala. Ada sesuatu yang ingin aku tunjukkan padamu.</p>
         
-        <!-- Tombol ini akan menyalakan lagu dan pindah halaman -->
-        <a href="galeri.html" class="btn-mulai" id="btn-mulai">Buka Kejutan</a>
+        <a href="galeri.html" class="btn-enter">Mulai Kenangan</a>
     </div>
 
-    <!-- Tag Audio tersembunyi -->
-    <audio id="bg-music" loop>
-        <source src="assets/audio/Ed Sheeran - Perfect (Official Music Video).mp3" type="audio/mpeg">
-    </audio>
-
     <script>
-        // Efek Confetti langsung meledak saat halaman dibuka
+        // Efek Confetti yang elegan (warna emas dan putih)
         window.onload = function() {
-            var duration = 3000;
+            var duration = 4000;
             var end = Date.now() + duration;
 
             (function frame() {
                 confetti({
-                    particleCount: 5,
+                    particleCount: 3,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
-                    colors: ['#ffb6c1', '#ff69b4', '#ffc0cb']
+                    colors: ['#D4AF37', '#FFFFFF', '#F9E5C9']
                 });
                 confetti({
-                    particleCount: 5,
+                    particleCount: 3,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
-                    colors: ['#ffb6c1', '#ff69b4', '#ffc0cb']
+                    colors: ['#D4AF37', '#FFFFFF', '#F9E5C9']
                 });
 
                 if (Date.now() < end) {
@@ -49,15 +44,6 @@
                 }
             }());
         };
-
-        // Menyimpan status musik agar terus menyala di halaman lain
-        document.getElementById('btn-mulai').addEventListener('click', function(e) {
-            // Karena pindah halaman akan mereset audio, trik paling aman di web statis 
-            // adalah membuka halaman baru di tab baru (target="_blank") ATAU
-            // menggunakan localStorage untuk menyimpan waktu putar, 
-            // tapi yang paling mudah untuk level ini:
-            sessionStorage.setItem("musicPlaying", "true");
-        });
     </script>
 </body>
 </html>

@@ -1,130 +1,266 @@
-/* Styling untuk halaman utama agar berada di tengah */
-.home-page {
+/* --- RESET & FONT --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #FAFAFA;
+    --text-main: #2C3539;
+    --text-muted: #7E7E7E;
+    --accent-gold: #D4AF37;
+    --card-bg: #FFFFFF;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .subtitle, .letter-title, .letter-signature {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+/* --- LANDING PAGE --- */
+.landing-page {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: radial-gradient(circle, #ffe6ea 0%, #fdfbfb 100%);
-    overflow: hidden;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    text-align: center;
+    padding: 20px;
 }
 
-.content-center {
-    text-align: center;
+.landing-content {
+    max-width: 600px;
     z-index: 10;
 }
 
-.glitch-text {
-    font-size: 4rem;
-    font-family: 'Playfair Display', serif;
-    color: #ff6b81;
-    text-shadow: 2px 2px 10px rgba(255, 107, 129, 0.3);
-    animation: pulse 2s infinite;
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+.title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-main);
 }
 
-/* Styling Tombol Heboh */
-.btn-mulai, .btn-nav {
+.message {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+.btn-enter {
     display: inline-block;
-    margin-top: 30px;
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    color: white;
-    background: linear-gradient(45deg, #ff6b81, #ff4757);
+    padding: 15px 45px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: var(--text-main);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+    border: 1px solid var(--text-main);
+}
+
+.btn-enter:hover {
+    background-color: transparent;
+    color: var(--text-main);
+}
+
+/* --- MUSIC PLAYER --- */
+.music-player {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
     border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 10px 20px rgba(255, 71, 87, 0.4);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
-.btn-mulai:hover, .btn-nav:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(255, 71, 87, 0.6);
-}
-
-.navbar {
+.music-info {
     display: flex;
-    justify-content: space-between;
-    padding: 20px 50px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    align-items: center;
+    gap: 15px;
 }
 
-.navbar a {
-    text-decoration: none;
-    color: #ff4757;
-    font-weight: bold;
+.music-title {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
 }
-/* --- STYLING KHUSUS HALAMAN PESAN --- */
 
-.letter-page {
-    background: radial-gradient(circle, #ffe6ea 0%, #fdfbfb 100%);
-    min-height: 100vh;
+.music-bars {
     display: flex;
-    flex-direction: column;
+    gap: 3px;
+    align-items: flex-end;
+    height: 15px;
 }
 
-.letter-container {
-    flex-grow: 1;
+.bar {
+    width: 3px;
+    background-color: var(--accent-gold);
+    animation: sound 0ms -800ms linear infinite alternate;
+}
+
+.bar:nth-child(1) { height: 5px; animation-duration: 474ms; }
+.bar:nth-child(2) { height: 10px; animation-duration: 433ms; }
+.bar:nth-child(3) { height: 15px; animation-duration: 407ms; }
+
+@keyframes sound {
+    0% { height: 3px; opacity: 0.5; }
+    100% { height: 15px; opacity: 1; }
+}
+
+/* --- GALLERY PAGE --- */
+.gallery-header {
+    text-align: center;
+    padding: 100px 20px 50px;
+}
+
+.gallery-header h2 {
+    font-size: 2.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+}
+
+.gallery-header p {
+    color: var(--text-muted);
+    letter-spacing: 2px;
+}
+
+.photo-timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.timeline-item {
+    margin-bottom: 80px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
 }
 
-.letter-content {
-    background: white;
-    padding: 50px;
-    border-radius: 15px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    max-width: 650px;
+.photo-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    max-width: 600px;
     width: 100%;
-    position: relative;
-    border-top: 6px solid #ffb6c1; /* Garis pastel di atas surat */
+    transition: transform 0.5s ease;
 }
 
-.letter-content h2 {
-    font-family: 'Playfair Display', serif;
-    color: #d4a373;
-    margin-bottom: 30px;
-    font-size: 2rem;
+.photo-card:hover {
+    transform: translateY(-5px);
 }
 
-.letter-content p {
-    font-size: 1.1rem;
-    line-height: 1.9;
+.image-wrapper {
+    overflow: hidden;
+    border-radius: 4px;
     margin-bottom: 20px;
-    color: #555;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 1.5s ease;
+}
+
+.photo-card:hover .image-wrapper img {
+    transform: scale(1.05);
+}
+
+.photo-caption h3 {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin-bottom: 5px;
+}
+
+.photo-caption p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* --- LOVE LETTER --- */
+.love-letter-section {
+    padding: 50px 20px 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.letter-box {
+    background: var(--card-bg);
+    padding: 50px;
+    max-width: 700px;
+    border-radius: 4px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--accent-gold);
+}
+
+.letter-title {
+    font-size: 2.2rem;
+    color: var(--text-main);
+    margin-bottom: 30px;
+}
+
+.letter-body p {
+    margin-bottom: 20px;
+    font-size: 1.05rem;
     text-align: justify;
 }
 
-.letter-content .signature {
-    margin-top: 50px;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
+.letter-signature {
+    margin-top: 40px;
     text-align: right;
-    color: #d4a373;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.3rem;
+    color: var(--accent-gold);
 }
 
-/* Memastikan tulisan rapi di HP */
-@media (max-width: 600px) {
-    .letter-content {
-        padding: 30px 20px;
-    }
-    .letter-content h2 {
-        font-size: 1.6rem;
-    }
-    .letter-content p {
-        font-size: 1rem;
-    }
+/* --- ANIMATIONS --- */
+.fade-in {
+    opacity: 0;
+    transition: opacity 1.5s ease-in;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .title { font-size: 2.5rem; }
+    .letter-box { padding: 30px 20px; }
+    .music-player { top: auto; bottom: 20px; right: 20px; }
 }
