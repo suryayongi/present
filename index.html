@@ -41,7 +41,7 @@
             font-weight: normal;
         }
 
-        /* --- OVERLAY PEMBUKA (SUPER ROMANTIS) --- */
+        /* --- OVERLAY PEMBUKA --- */
         .overlay {
             position: fixed;
             top: 0;
@@ -204,7 +204,7 @@
         }
 
         .timeline-item {
-            margin-bottom: 140px; /* Jarak ekstra untuk tali lampion */
+            margin-bottom: 140px; 
             display: flex;
             justify-content: center;
             perspective: 1000px;
@@ -218,7 +218,6 @@
             will-change: transform;
         }
 
-        /* Tali lampion */
         .hanging-container::before {
             content: '';
             position: absolute;
@@ -231,7 +230,6 @@
             z-index: -1;
         }
 
-        /* Titik cahaya di ujung tali */
         .hanging-container::after {
             content: '';
             position: absolute;
@@ -246,7 +244,6 @@
             z-index: 3;
         }
 
-        /* Variasi ayunan agar terlihat natural */
         .timeline-item:nth-child(odd) .hanging-container {
             animation-duration: 7s;
             animation-delay: 0.5s;
@@ -305,11 +302,55 @@
             font-style: italic;
         }
 
+        /* --- SECTION ULANG TAHUN KHUSUS --- */
+        .birthday-section {
+            text-align: center;
+            padding: 80px 20px;
+            margin: 40px auto 80px;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .birthday-content {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 60px 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 209, 216, 0.8);
+            box-shadow: 0 15px 40px rgba(200, 134, 140, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .birthday-content h2 {
+            font-size: 4.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(200, 134, 140, 0.2);
+        }
+
+        .birthday-message {
+            font-size: 1.15rem;
+            line-height: 2.2;
+            color: var(--text-dark);
+            font-family: 'Cormorant Garamond', serif;
+            text-align: justify;
+            text-align-last: center;
+        }
+
+        .birthday-message p {
+            margin-bottom: 25px;
+        }
+
+        .highlight-text {
+            font-size: 1.4rem;
+            color: var(--accent-rose);
+            font-weight: bold;
+            font-style: italic;
+        }
+
         /* --- E-PRESCRIPTION ROMANTIS --- */
         .prescription-section {
             display: flex;
             justify-content: center;
-            padding: 80px 20px;
+            padding: 40px 20px 80px;
         }
 
         .prescription-card {
@@ -409,6 +450,8 @@
             .prescription-card { padding: 40px 25px; }
             .heartbeat-monitor { bottom: 25px; top: auto; right: 25px; }
             .photo-card { padding: 15px 15px 25px 15px; }
+            .birthday-content h2 { font-size: 3.5rem; }
+            .birthday-content { padding: 40px 20px; }
         }
     </style>
 </head>
@@ -450,7 +493,7 @@
                 <div class="hanging-container">
                     <div class="photo-card">
                         <div class="image-wrapper">
-                            <img src="assets/images/FOTO_1.jpeg" alt="Momen 1">
+                            <img src="assets/images/FOTO_1.jpg" alt="Momen 1">
                         </div>
                         <div class="photo-caption">
                             <h3 class="cursive-text">Titik Awal</h3>
@@ -484,7 +527,7 @@
                         </div>
                         <div class="photo-caption">
                             <h3 class="cursive-text">Saling Menguatkan</h3>
-                            <p>Di saat aku pusing dengan tugaskuu dan kamu lelah dengan tebalnya jadwal roleplay, kita selalu bisa menjadi tempat pulang.</p>
+                            <p>Di saat aku pusing dengan barisan kode dan kamu lelah dengan tebalnya asuhan keperawatan, kita selalu bisa menjadi tempat pulang.</p>
                         </div>
                     </div>
                 </div>
@@ -551,17 +594,30 @@
             </div>
         </section>
 
+        <!-- SECTION UCAPAN ULANG TAHUN -->
+        <section class="birthday-section fade-in-up">
+            <div class="birthday-content">
+                <h2 class="cursive-text">Selamat Ulang Tahun, Semestaku</h2>
+                <div class="birthday-message">
+                    <p>Hari ini adalah harimu. Di antara tumpukan tugas, laporan, dan lelahnya jadwal praktikum, aku ingin kamu berhenti sejenak. Tarik napas, dan sadari betapa luar biasanya dirimu.</p>
+                    <p>Jarak antara Bandung dan Depok mungkin membuat kita tidak bisa merayakannya secara langsung hari ini. Tapi, tidak ada jarak yang bisa menghalangi doaku untuk selalu menyertaimu.</p>
+                    <p>Semoga di usiamu yang baru ini, lelahmu selalu terbayar dengan senyuman. Semoga pundakmu dikuatkan, dan hatimu selalu menemukan alasan untuk bahagia. Jangan lupa jaga kesehatanmu sendiri, karena dunia butuh perawat hebat sepertimu, <span class="highlight-text">dan aku butuh kamu.</span></p>
+                    <p>Terima kasih sudah hadir di dunia ini, dan terima kasih sudah menemani hari-hariku. Selamat bertambah usia, kesayanganku.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- E-Prescription Section -->
         <section class="prescription-section fade-in-up">
             <div class="prescription-card">
                 <div class="prescription-header">
                     <h2 class="cursive-text">Resep Penawar Rindu</h2>
-                    <p>Diterbitkan penuh cinta oleh Pacal kamu hihi</p>
+                    <p>Diterbitkan penuh cinta oleh Elang</p>
                 </div>
                 <div class="prescription-body">
                     <div class="patient-info">
-                        <p>Diberikan Untuk: <span>kecintaankuu uchiiii❤️❤️</span></p>
-                        <p>Diagnosis: <span>Kangenan krn ldr:(</span></p>
+                        <p>Diberikan Untuk: <span>Kesayanganku</span></p>
+                        <p>Diagnosis: <span>Terlalu keras berjuang dan butuh penyemangat</span></p>
                     </div>
                     
                     <div class="pill-box">
@@ -598,7 +654,6 @@
                         console.log("Autoplay dicegah browser.");
                     });
                     
-                    // Trigger deteksi scroll setelah konten dirender
                     setTimeout(checkVisibility, 100);
                 }, 1500);
             });
@@ -609,7 +664,6 @@
                 fadeElements.forEach(element => {
                     const rect = element.getBoundingClientRect();
                     const windowHeight = window.innerHeight;
-                    // Trigger animasi ketika elemen masuk 85% layar
                     if (rect.top <= windowHeight * 0.85) {
                         element.classList.add('visible');
                     }
