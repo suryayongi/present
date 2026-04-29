@@ -3,19 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Record: Kesayanganku</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Untukmu, Semestaku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- RESET & VARIABEL WARNA --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-main: #FAF5F5;
+            --text-dark: #3A2F2F;
+            --text-light: #8A7878;
+            --accent-rose: #C8868C;
+            --gold: #D4AF37;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(180deg, #FAF5F5 0%, #FDF2F2 50%, #FAF5F5 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .cursive-text {
+            font-family: 'Great Vibes', cursive;
+            color: var(--accent-rose);
+            font-weight: normal;
+        }
+
+        /* --- OVERLAY PEMBUKA (SUPER ROMANTIS) --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #FFF8F8 0%, #FCE8E8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
+        }
+
+        .overlay-content {
+            text-align: center;
+            padding: 40px;
+            max-width: 650px;
+            position: relative;
+        }
+
+        .subtitle {
+            color: var(--gold);
+            letter-spacing: 5px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .overlay-content h1 {
+            font-size: 4rem;
+            margin: 10px 0 20px;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .overlay-content p {
+            color: var(--text-light);
+            margin-bottom: 45px;
+            line-height: 2;
+            font-size: 1.15rem;
+            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--accent-rose);
+            padding: 16px 45px;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-rose);
+            color: var(--white);
+            box-shadow: 0 10px 25px rgba(200, 134, 140, 0.4);
+            transform: translateY(-3px);
+            letter-spacing: 5px;
+        }
+
+        /* --- MONITOR & MUSIC --- */
+        .heartbeat-monitor {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 12px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(200, 134, 140, 0.15);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 209, 216, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .pulse-text {
+            color: var(--accent-rose);
+            animation: pulse 1.5s infinite;
+            font-weight: 500;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.5; }
+        }
+
+        /* --- EFEK KELOPAK BUNGA --- */
+        #petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .petal {
+            position: absolute;
+            background-color: #FFD1D8;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.5;
+            animation: fall linear forwards;
+            box-shadow: 0 0 12px rgba(255, 182, 193, 0.6);
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(80px); opacity: 0; }
+        }
+
+        /* --- MAIN CONTENT & GALLERY --- */
+        .main-content {
+            display: none;
+            padding-bottom: 120px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-header {
+            text-align: center;
+            padding: 120px 20px 80px;
+        }
+
+        .gallery-header h2 {
+            font-size: 4.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 15px rgba(200, 134, 140, 0.2);
+        }
+
+        .gallery-header p {
+            color: var(--text-light);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .photo-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .timeline-item {
+            margin-bottom: 140px; /* Jarak ekstra untuk tali lampion */
+            display: flex;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        /* --- EFEK LAMPION MENGGANTUNG DAN BERAYUN --- */
+        .hanging-container {
+            position: relative;
+            transform-origin: top center;
+            animation: swing 6s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        /* Tali lampion */
+        .hanging-container::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(212, 175, 55, 0), rgba(212, 175, 55, 0.8));
+            z-index: -1;
+        }
+
+        /* Titik cahaya di ujung tali */
+        .hanging-container::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--white);
+            border-radius: 50%;
+            box-shadow: 0 0 15px 5px rgba(212, 175, 55, 0.6);
+            z-index: 3;
+        }
+
+        /* Variasi ayunan agar terlihat natural */
+        .timeline-item:nth-child(odd) .hanging-container {
+            animation-duration: 7s;
+            animation-delay: 0.5s;
+        }
+        
+        .timeline-item:nth-child(even) .hanging-container {
+            animation-duration: 8s;
+            animation-delay: 1.5s;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes swing {
+            0% { transform: rotate(3deg); }
+            50% { transform: rotate(-2deg); }
+            100% { transform: rotate(4deg); }
+        }
+
+        .photo-card {
+            background: var(--white);
+            padding: 25px 25px 35px 25px;
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(138, 120, 120, 0.15);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+
+        .image-wrapper {
+            overflow: hidden;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: sepia(10%) contrast(110%);
+        }
+
+        .photo-caption {
+            text-align: center;
+        }
+
+        .photo-caption h3 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .photo-caption p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* --- E-PRESCRIPTION ROMANTIS --- */
+        .prescription-section {
+            display: flex;
+            justify-content: center;
+            padding: 80px 20px;
+        }
+
+        .prescription-card {
+            background: #FFFCFA;
+            max-width: 700px;
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 25px 60px rgba(200, 134, 140, 0.15);
+            border: 1px solid rgba(200, 134, 140, 0.3);
+            padding: 60px 50px;
+            background-image: radial-gradient(rgba(200, 134, 140, 0.2) 1px, transparent 1px);
+            background-size: 25px 25px;
+            position: relative;
+        }
+
+        .prescription-card::before {
+            content: '';
+            position: absolute;
+            top: 20px; left: 20px; right: 20px; bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            pointer-events: none;
+        }
+
+        .prescription-header {
+            border-bottom: 1px solid rgba(200, 134, 140, 0.3);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .prescription-header h2 {
+            font-size: 3.5rem;
+            color: var(--text-dark);
+        }
+
+        .prescription-header p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .patient-info {
+            margin-bottom: 35px;
+            line-height: 2.2;
+            font-size: 1.15rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+
+        .patient-info span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: var(--accent-rose);
+            font-style: normal;
+        }
+
+        .pill-box {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 40px 30px;
+            border-radius: 4px;
+            margin: 30px 0;
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: var(--text-dark);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px dashed rgba(200, 134, 140, 0.5);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+
+        .btn-wrapper {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* --- ANIMASI KEMUNCULAN --- */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .overlay-content h1 { font-size: 3rem; }
+            .gallery-header h2 { font-size: 3.5rem; }
+            .prescription-card { padding: 40px 25px; }
+            .heartbeat-monitor { bottom: 25px; top: auto; right: 25px; }
+            .photo-card { padding: 15px 15px 25px 15px; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Layar Pembuka (Untuk mengaktifkan audio) -->
+    <!-- Layar Pembuka -->
     <div id="welcome-overlay" class="overlay">
         <div class="overlay-content">
-            <h3 class="subtitle">CONFIDENTIAL RECORD</h3>
-            <h1>Untuk Calon Perawat Hebatku</h1>
-            <p>Pastikan volume perangkatmu menyala sebelum membuka dokumen ini.</p>
-            <button id="btn-enter" class="btn-primary">Buka Rekam Jejak</button>
+            <h3 class="subtitle">Sebuah Melodi & Cerita</h3>
+            <h1 class="cursive-text">Teruntuk Kamu, Penawar Lelahku</h1>
+            <p>Tarik napas perlahan. Di sela padatnya jadwal dan laporanmu, izinkan aku membawa senyummu kembali. Dengarkan melodinya, dan mari bernostalgia.</p>
+            <button id="btn-enter" class="btn-primary">Buka Lembaran Rindu</button>
         </div>
     </div>
 
@@ -24,92 +429,123 @@
         <source src="assets/audio/Ed Sheeran - Perfect (Official Music Video).mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Indikator Denyut Jantung (Music Visualizer) -->
+    <!-- Hujan Bunga -->
+    <div id="petals-container"></div>
+
+    <!-- Indikator Status -->
     <div class="heartbeat-monitor">
-        <span>Vital Signs: Normal</span>
-        <div class="ecg-line"></div>
+        <span class="pulse-text">Sedang Memutar: Perfect</span>
+        <span>| Memikirkanmu</span>
     </div>
 
     <main class="main-content" id="main-content">
-        <header class="gallery-header fade-in">
-            <h2>Rekam Jejak Kita</h2>
-            <p>Setiap detik bersamamu adalah memori yang patut diarsipkan.</p>
+        <header class="gallery-header fade-in-up">
+            <h2 class="cursive-text">Cahaya di Setiap Kenangan</h2>
+            <p>Gulir perlahan ke bawah</p>
         </header>
 
         <section class="photo-timeline">
             <!-- FOTO 1 -->
             <div class="timeline-item fade-in-up">
-                <div class="photo-card">
-                    <img src="assets/images/FOTO_1.jpg" alt="Momen 1">
-                    <div class="photo-caption">
-                        <h3>Titik Awal</h3>
-                        <p>"I found a love for me..." Waktu seakan berhenti saat momen ini diabadikan. Sebuah awal dari banyak hal baik.</p>
+                <div class="hanging-container">
+                    <div class="photo-card">
+                        <div class="image-wrapper">
+                            <img src="assets/images/FOTO_1.jpeg" alt="Momen 1">
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="cursive-text">Titik Awal</h3>
+                            <p>"I found a love for me..." Waktu seakan berhenti saat momen ini diabadikan. Sebuah awal dari banyak hal baik.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- FOTO 2 -->
             <div class="timeline-item fade-in-up">
-                <div class="photo-card">
-                    <img src="assets/images/FOTO_2.jpg" alt="Momen 2">
-                    <div class="photo-caption">
-                        <h3>Bandung - Depok</h3>
-                        <p>Jarak fisik mungkin ada, tapi melihat senyummu selalu membuat jarak itu terasa tidak ada artinya sama sekali.</p>
+                <div class="hanging-container">
+                    <div class="photo-card">
+                        <div class="image-wrapper">
+                            <img src="assets/images/FOTO_2.jpg" alt="Momen 2">
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="cursive-text">Di Sela Jarak</h3>
+                            <p>Jarak antara Bandung dan Depok memang terbentang. Tapi setiap kali melihat senyummu, jarak itu terasa lenyap tak bersisa.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- FOTO 3 -->
             <div class="timeline-item fade-in-up">
-                <div class="photo-card">
-                    <img src="assets/images/FOTO_3.jpg" alt="Momen 3">
-                    <div class="photo-caption">
-                        <h3>Saling Menguatkan</h3>
-                        <p>Di saat aku pusing dengan barisan kode dan kamu lelah dengan tebalnya buku keperawatan, kita selalu bisa jadi tempat pulang.</p>
+                <div class="hanging-container">
+                    <div class="photo-card">
+                        <div class="image-wrapper">
+                            <img src="assets/images/FOTO_3.jpg" alt="Momen 3">
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="cursive-text">Saling Menguatkan</h3>
+                            <p>Di saat aku pusing dengan tugaskuu dan kamu lelah dengan tebalnya jadwal roleplay, kita selalu bisa menjadi tempat pulang.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- FOTO 4 -->
             <div class="timeline-item fade-in-up">
-                <div class="photo-card">
-                    <img src="assets/images/FOTO_4.jpg" alt="Momen 4">
-                    <div class="photo-caption">
-                        <h3>Kekuatanku</h3>
-                        <p>"Well I found a woman, stronger than anyone I know..." Kamu selalu bisa bangkit dan bersinar, seberat apa pun hari yang kamu lalui.</p>
+                <div class="hanging-container">
+                    <div class="photo-card">
+                        <div class="image-wrapper">
+                            <img src="assets/images/FOTO_4.jpg" alt="Momen 4">
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="cursive-text">Kekuatanku</h3>
+                            <p>"Well I found a woman, stronger than anyone I know..." Kamu selalu bisa bangkit dan bersinar, seberat apa pun hari yang kamu lalui.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- FOTO 5 -->
             <div class="timeline-item fade-in-up">
-                <div class="photo-card">
-                    <img src="assets/images/FOTO_5.jpg" alt="Momen 5">
-                    <div class="photo-caption">
-                        <h3>Hal Sederhana</h3>
-                        <p>Momen-momen sederhana bersamamu selalu terasa spesial. Hal kecil jadi sangat berharga asal kamu yang menemaninya.</p>
+                <div class="hanging-container">
+                    <div class="photo-card">
+                        <div class="image-wrapper">
+                            <img src="assets/images/FOTO_5.jpg" alt="Momen 5">
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="cursive-text">Hal Sederhana</h3>
+                            <p>Momen-momen sederhana bersamamu selalu terasa sangat spesial. Hal kecil menjadi luar biasa asal kamu yang menemaninya.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- FOTO 6 -->
             <div class="timeline-item fade-in-up">
-                <div class="photo-card">
-                    <img src="assets/images/FOTO_6.jpg" alt="Momen 6">
-                    <div class="photo-caption">
-                        <h3>Penawar Lelah</h3>
-                        <p>Melihat foto ini adalah caraku mengembalikan semangat. Senyummu adalah penawar paling ampuh untuk semua rasa penat.</p>
+                <div class="hanging-container">
+                    <div class="photo-card">
+                        <div class="image-wrapper">
+                            <img src="assets/images/FOTO_6.jpg" alt="Momen 6">
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="cursive-text">Penawar Lelah</h3>
+                            <p>Melihat foto ini adalah caraku mengembalikan semangat. Senyummu adalah penawar paling ampuh untuk semua rasa penat.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- FOTO 7 -->
             <div class="timeline-item fade-in-up">
-                <div class="photo-card">
-                    <img src="assets/images/FOTO_7.jpg" alt="Momen 7">
-                    <div class="photo-caption">
-                        <h3>Menuju Nanti</h3>
-                        <p>"I don't deserve this, darling, you look perfect tonight." Mari buat lebih banyak kenangan hebat ke depannya.</p>
+                <div class="hanging-container">
+                    <div class="photo-card">
+                        <div class="image-wrapper">
+                            <img src="assets/images/FOTO_7.jpg" alt="Momen 7">
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="cursive-text">Menuju Nanti</h3>
+                            <p>"I don't deserve this, darling, you look perfect tonight." Ini baru sebagian kecil dari cerita kita. Mari ukir lebih banyak keindahan ke depannya.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,23 +555,120 @@
         <section class="prescription-section fade-in-up">
             <div class="prescription-card">
                 <div class="prescription-header">
-                    <h2>R/ E-Prescription</h2>
-                    <p>Dokumen Resmi - Diterbitkan oleh Elang</p>
+                    <h2 class="cursive-text">Resep Penawar Rindu</h2>
+                    <p>Diterbitkan penuh cinta oleh Pacal kamu hihi</p>
                 </div>
                 <div class="prescription-body">
-                    <p class="patient-name">Nama Pasien: Kesayanganku</p>
-                    <p class="diagnosis">Diagnosis: Kelelahan akibat tugas dan praktikum</p>
-                    
-                    <div class="pill-box">
-                        <p id="pesan-semangat">Klik tombol di bawah jika kamu sedang butuh suntikan semangat.</p>
+                    <div class="patient-info">
+                        <p>Diberikan Untuk: <span>kecintaankuu uchiiii❤️❤️</span></p>
+                        <p>Diagnosis: <span>Kangenan krn ldr:(</span></p>
                     </div>
                     
-                    <button id="btn-resep" class="btn-primary">Minta Resep Semangat</button>
+                    <div class="pill-box">
+                        <p id="pesan-semangat">Klik tombol di bawah jika kamu sedang merasa lelah atau butuh senyuman hari ini.</p>
+                    </div>
+                    
+                    <div class="btn-wrapper">
+                        <button id="btn-resep" class="btn-primary">Baca Pesanku</button>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            const overlay = document.getElementById('welcome-overlay');
+            const btnEnter = document.getElementById('btn-enter');
+            const mainContent = document.getElementById('main-content');
+            const bgMusic = document.getElementById('bg-music');
+            const heartbeatMonitor = document.querySelector('.heartbeat-monitor');
+
+            // 1. Menangani aksi masuk dan putar lagu
+            btnEnter.addEventListener('click', function() {
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.visibility = 'hidden';
+                    mainContent.style.display = 'block';
+                    heartbeatMonitor.style.display = 'flex';
+                    
+                    bgMusic.volume = 0.6;
+                    bgMusic.play().catch(error => {
+                        console.log("Autoplay dicegah browser.");
+                    });
+                    
+                    // Trigger deteksi scroll setelah konten dirender
+                    setTimeout(checkVisibility, 100);
+                }, 1500);
+            });
+
+            // 2. Animasi Scroll (Fade In Up)
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            const checkVisibility = () => {
+                fadeElements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    // Trigger animasi ketika elemen masuk 85% layar
+                    if (rect.top <= windowHeight * 0.85) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+            window.addEventListener('scroll', checkVisibility);
+
+            // 3. Generator Kelopak Bunga Berjatuhan
+            const petalsContainer = document.getElementById('petals-container');
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                const size = Math.random() * 15 + 10;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.left = `${Math.random() * 100}vw`;
+                
+                const duration = Math.random() * 8 + 8;
+                petal.style.animationDuration = `${duration}s`;
+                
+                petalsContainer.appendChild(petal);
+                
+                setTimeout(() => {
+                    petal.remove();
+                }, duration * 1000);
+            }
+            // Munculkan bunga baru setiap 400ms
+            setInterval(createPetal, 400);
+
+            // 4. Database Pesan Semangat
+            const resepSemangat = [
+                "Tarik napas pelan-pelan. Laporan praktikumnya pasti selesai. Aku selalu bangga padamu.",
+                "Kalau capek, tutup dulu bukunya dan istirahat. Kamu sudah berjuang sangat keras hari ini.",
+                "Jarak kita mungkin terbentang, tapi doaku dari sini selalu memelukmu erat.",
+                "Satu langkah lagi menuju perawat hebat. Jangan menyerah, kamu lebih kuat dari yang kamu kira.",
+                "Tidak apa-apa kalau hari ini terasa berat. Ingat kalau ada aku yang selalu mendukungmu dari jauh.",
+                "Melihatmu mengejar cita-cita adalah hal yang paling mengagumkan. Semangat terus, kesayanganku.",
+                "Tidurlah yang nyenyak malam ini. Biarkan besok menjadi hari yang baru. Kamu pantas bahagia."
+            ];
+
+            const btnResep = document.getElementById('btn-resep');
+            const teksPesan = document.getElementById('pesan-semangat');
+
+            btnResep.addEventListener('click', function() {
+                teksPesan.style.opacity = "0";
+                btnResep.disabled = true;
+
+                setTimeout(() => {
+                    const randomIndex = Math.floor(Math.random() * resepSemangat.length);
+                    teksPesan.innerText = '"' + resepSemangat[randomIndex] + '"';
+                    teksPesan.style.opacity = "1";
+                    teksPesan.style.transition = "opacity 1s ease";
+                    
+                    btnResep.disabled = false;
+                    btnResep.innerText = "Baca Pesan Lainnya";
+                }, 600);
+            });
+        });
+    </script>
 </body>
 </html>
